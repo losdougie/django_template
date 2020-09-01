@@ -89,8 +89,20 @@ class HomePageView(TemplateView):
     template_name = 'home/home.html'
 
 ----
+remove secret key
++> .gitignore
+.env
+> .env
+SECRET_KEY= ???
+~> config/settings
+import os
+import dotenv
+
+----
 Initialize git
 add README.md
 git branch -M master
 git remote add origin https://github.com/<username>/<project>.git
 git push -u origin master
+
+---
