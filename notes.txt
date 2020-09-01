@@ -1,3 +1,12 @@
+LEGEND
+$ command
+> contents of file
+~> change lines in file
++> add line in file
+-> remove/comment line in file
+>> append to file
+-----
+
 $ mkdir django
 $ python3 -m venv venv --prompt=django
 $ . venv/bin/activate
@@ -17,4 +26,71 @@ $ python manage.py runserver
 $ git status
 $ git add .
 $ git commit -m "Initial Commit"
+-----
 
++> config/settings.py
+    INSTALLED APPS = [
+        ...,
+        'home'
+    ]
+
+~> config/urls.py
+    from django.urls import path, include
+
+    urlpatterns = [
+        ...,
+        path('', include("home.urls"))
+    ]
+
+> home/urls.py
+    # home/urls.py
+    from django.urls import path
+    from .views import HomePageView
+
+    urlpatterns = [
+        path('', HomePageView.as_view(), name='home'),
+    ]
+
++> templates/
+~> config/settings.py
+    TEMPLATES = [
+        ...,
+        'DIRS': [str(BASE_DIR.joinpath('templates'))],
+        ...,
+    ]
+
+
+> templates/shared/base.html
+    <html>
+    <head>
+    <title>Home</title>
+    </head>
+        <body>
+        <header>
+            <h1><a href="{% url 'home' %}">Home</a></h1>
+        </header>
+            <div>
+            {% block content %}
+            {% endblock content %}
+            </div>
+        </body>
+    </html>
+> templates/home/home.html
+    <!-- templates/home.html -->
+    {% extends 'shared/base.html' %}
+    {% block content %}
+    <h1>Homepage</h1>
+    {% endblock content %}
+
+>> home/views.py
+from django.views.generic import TemplateView
+
+class HomePageView(TemplateView):
+    template_name = 'home/home.html'
+
+----
+Initialize git
+add README.md
+git branch -M master
+git remote add origin https://github.com/<username>/<project>
+push -u origin master
