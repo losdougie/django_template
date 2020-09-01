@@ -1,0 +1,20 @@
+$ mkdir django
+$ python3 -m venv venv --prompt=django
+$ . venv/bin/activate
+$ python -m pip install --upgrade pip setuptools
+$ python -m pip install django
+$ git init
+$ touch .gitignore
+> .gitignore
+venv/
+db.sqlite3
+$ python -m pip freeze > requirements.txt
+$ django-admin startproject config .
+$ python manage.py startapp home
+$ python manage.py migrate
+$ python manage.py createsuperuser
+$ python manage.py runserver
+$ git status
+$ git add .
+$ git commit -m "Initial Commit"
+
